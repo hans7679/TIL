@@ -24,63 +24,63 @@ void main() {<br>
 정사각형을 출력하는 다양한 코드를 작성
 
 #### 코드:
-void main() {
-  int n = 10;
-
-  print("\n곽 찬 사각형:");
-  filledSquare(n);
-
-  print("\n테두리 사각형:");
-  borderSquare(n);
-
-  print("\n/ 표시 사각형:");
-  slashSquare(n);
-
-  print("\n\\ 표시 사각형:");
-  backslashSquare(n);
-
-  print("\nX 표시 사각형:");
-  xSquare(n);
-}
-
-void filledSquare(int n) {
-  for (int i = 0; i < n; i++) {
-    print('.' * n);
-  }
-}
-
-void borderSquare(int n) {
-  for (int i = 0; i < n; i++) {
-    if (i == 0 || i == n - 1) {
-      print('.' * n);
-     } else {
-      print('.' + ' ' * (n - 2) + '.');
-    }
-  }
-}
-
-void slashSquare(int n) {
-  for (int i = 0; i < n; i++) {
-    print(' ' * i + '/');
-  }
-}
-
-void backslashSquare(int n) {
-  for (int i = 0; i < n; i++) {
-    print(' ' * (n - i - 1) + '\\');
-  }
-}
-
-void xSquare(int n) {
-  for (int i = 0; i < n; i++) {
-    String row = '';
-    for (int j = 0; j < n; j++) {
-      if (i == j || i + j == n - 1) {
-        row += 'X';
-      } else {
-        row += ' ';
-      }
-    }
-    print(row);
-  }
-}
+void main() {<br>
+  int n = 10;<br>
+<br>
+  print("\n곽 찬 사각형:");<br>
+  filledSquare(n);<br>
+<br>
+  print("\n테두리 사각형:");<br>
+  borderSquare(n);<br>
+<br>
+  print("\n/ 표시 사각형:");<br>
+  slashSquare(n);<br>
+<br>
+  print("\n\\ 표시 사각형:");<br>
+  backslashSquare(n);<br>
+<br>
+  print("\nX 표시 사각형:");<br>
+  xSquare(n);<br>
+}<br>
+<br>
+void filledSquare(int n) {<br>
+  for (int i = 0; i < n; i++) {<br>
+    print('.' * n);<br>
+  }<br>
+}<br>
+<br>
+void borderSquare(int n) {<br>
+  for (int i = 0; i < n; i++) {<br>
+    if (i == 0 || i == n - 1) {<br>
+      print('.' * n);<br>
+     } else {<br>
+      print('.' + ' ' * (n - 2) + '.');<br>
+    }<br>
+  }<br>
+}<br>
+<br>
+void slashSquare(int n) {<br>
+  for (int i = 0; i < n; i++) {<br>
+    print(' ' * i + '/');<br>
+  }<br>
+}<br>
+<br>
+void backslashSquare(int n) {<br>
+  for (int i = 0; i < n; i++) {<br>
+    print(' ' * (n - i - 1) + '\\');<br>
+  }<br>
+}<br>
+<br>
+void xSquare(int n) {<br>
+  for (int i = 0; i < n; i++) {<br>
+    String row = '';<br>
+    for (int j = 0; j < n; j++) {<br>
+      if (i == j || i + j == n - 1) {<br>
+        row += 'X';<br>
+      } else {<br>
+        row += ' ';<br>
+      }<br>
+    }<br>
+    print(row);<br>
+  }<br>
+}<br>
