@@ -86,3 +86,22 @@ void xSquare(int n) {
   }
 }
 ```
+
+## 실습3: 날짜를 입력받아 요일을 출력 코드 작성
+
+### 주제
+입력한 날짜의 요일을 출력
+
+### 내용
+`날짜(예: `2025-03-11`)에 해당하는 요일을 계산하고 출력
+
+```dart
+void main() {
+  var input = '2025-03-11'; 
+  var date = DateTime.parse(input); 
+
+  List<String> weekdays = ['월', '화', '수', '목', '금', '토', '일'];
+
+  print(weekdays[date.weekday - 1]);
+}
+```
