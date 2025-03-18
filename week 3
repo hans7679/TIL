@@ -1,3 +1,10 @@
+# TIL - 실습
+
+## 주제: rectangle 길이 출력 코드 작성
+
+## 내용: Dart 언어 출력 코드 작성
+
+#### 코드:
 '''dart
 class Rectangle {
   num left, top, width, height;
