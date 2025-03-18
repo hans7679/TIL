@@ -63,3 +63,42 @@ void main() {
    print(hero.name);
 }
 ```
+
+# TIL - 실습
+
+## 주제: Goblin attack 내용 출력 코드 작성
+
+## 내용: Dart 언어 출력 코드 작성
+
+#### 코드:
+```dart
+// Monster는 attack 할 수 있다.
+abstract class Monster{
+  void attack();
+}
+
+// Goblin은 Monster이며 고블린 어택을 한다.
+class Goblin implements Monster {
+  @override
+  void attack() => print('고블린 어택');
+}
+
+// Bat은 Monster이며 할퀴기 attack을 한다.
+class Bat implements Monster {
+  @override
+  void attack() => print('할퀴기!');
+}
+
+void main()
+{
+  Goblin m1 = Goblin();
+  m1.attack();
+  Bat m2 = Bat();
+  m2.attack();
+  
+  print('');
+  
+  List<Monster> monsters = [m1,m2];
+  monsters.forEach((m) => m.attack());
+}
+```
