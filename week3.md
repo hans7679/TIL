@@ -102,3 +102,31 @@ void main()
   monsters.forEach((m) => m.attack());
 }
 ```
+# TIL - 실습
+
+## 주제: lottonums / countryMap 내용 출력 코드 작성
+
+## 내용: Dart 언어 출력 코드 작성
+
+#### 코드:
+```dart
+void main() {
+  var lottoNums = [5, 6, 11, 13, 17, 21];
+  var countryMap = {'한국': '서울', '일본': '도쿄', '중국': '북경'};
+  var setNums = {1, 2, 3, 4, 5, 6};
+
+  print(lottoNums[0]); //5
+  print(countryMap['일본']); // 도쿄
+  print(setNums.contains(5)); //2
+  
+  lottoNums.add(45); // 보너스 번호
+  print(lottoNums);
+  
+  countryMap['인도'] = '인디아';
+  print(countryMap);
+  
+  setNums.add(7);
+  print(setNums);
+}
+
+```
