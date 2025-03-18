@@ -5,7 +5,7 @@
 ## 내용: Dart 언어 출력 코드 작성
 
 #### 코드:
-'''dart
+```dart
 class Rectangle {
   num left, top, width, height;
   
@@ -27,4 +27,4 @@ void main()
   r.bottom = 20;
   print([r.left, r.top, r.width, r.height]);
   }
-  '''
+  ```
