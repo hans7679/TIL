@@ -6,7 +6,7 @@
 
 #### 코드:
 #### MainActivity.java :
-package com.example.myapplication; // 패키지명 확인
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-// 🔽 추가
 import com.example.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             updateTime();
-            handler.postDelayed(this, 1000); // 1초마다 실행
+            handler.postDelayed(this, 1000);
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // R 오류 발생 시 패키지 확인
+        setContentView(R.layout.activity_main);
 
         timeTextView = findViewById(R.id.timeTextView);
         updateTime();
