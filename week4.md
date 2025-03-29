@@ -1,4 +1,4 @@
-# TIL - 실습
+![23](https://github.com/user-attachments/assets/1630504d-decc-48d5-b509-ee28d817ecf2)![image](https://github.com/user-attachments/assets/4868a9c4-f8c5-4596-8388-750f8644b19e)# TIL - 실습
 
 ## 주제: 현재 시각을 표시하는 앱
 
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
     <TextView
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height![12](https://github.com/user-attachments/assets/b2603b62-9396-49bf-8e18-6b324f46dddd)
+="wrap_content"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#000000"
@@ -85,4 +86,6 @@ public class MainActivity extends AppCompatActivity {
         android:padding="20dp"/>
 </LinearLayout>
 ```
+![23](https://github.com/user-attachments/assets/2e4029b8-35bf-4d29-ba93-252b93134227)
+![12](https://github.com/user-attachments/assets/cba56413-198f-4a73-a907-19f64f5a9130)
 
