@@ -6,6 +6,7 @@
 
 #### 코드:
 #### MainActivity.java :
+```dart
 package com.example.myapplication;
 
 import android.os.Bundle;
@@ -52,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(updateTimeRunnable);
     }
 }
+```dart
 
 #### activty_main.xml
-
+```dart
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -82,5 +84,5 @@ public class MainActivity extends AppCompatActivity {
         android:gravity="center"
         android:padding="20dp"/>
 </LinearLayout>
-
+```dart
 
