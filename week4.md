@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(updateTimeRunnable);
     }
 }
-```dart
+```
 
 #### activty_main.xml
 ```dart
@@ -84,5 +84,5 @@ public class MainActivity extends AppCompatActivity {
         android:gravity="center"
         android:padding="20dp"/>
 </LinearLayout>
-```dart
+```
 
