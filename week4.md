@@ -1,4 +1,4 @@
-![23](https://github.com/user-attachments/assets/1630504d-decc-48d5-b509-ee28d817ecf2)![image](https://github.com/user-attachments/assets/4868a9c4-f8c5-4596-8388-750f8644b19e)# TIL - 실습
+# TIL - 실습
 
 ## 주제: 현재 시각을 표시하는 앱
 
