@@ -1,0 +1,285 @@
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+  runApp(SudokuApp());
+}
+
+class SudokuApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Sudoku Game',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SudokuHomePage(),
+    );
+  }
+}
+
+class SudokuHomePage extends StatefulWidget {
+  @override
+  _SudokuHomePageState createState() => _SudokuHomePageState();
+}
+
+class _SudokuHomePageState extends State<SudokuHomePage> {
+  List<List<int?>> board = List.generate(9, (_) => List.filled(9, null));
+  List<List<int?>> solution = List.generate(9, (_) => List.filled(9, 0));
+  bool gameOver = false;
+  List<List<bool>> isCellValid = List.generate(9, (_) => List.filled(9, true));
+
+  @override
+  void initState() {
+    super.initState();
+    generatePuzzle(difficulty: 1); // 기본 난이도로 퍼즐 생성
+  }
+
+  // 유효성 검사: 가로, 세로, 3x3 박스에 중복된 숫자가 있는지 체크
+  bool isValid(List<List<int?>> board, int row, int col, int num) {
+    // 가로 중복 체크
+    for (int i = 0; i < 9; i++) {
+      if (board[row][i] == num) {
+        return false;
+      }
+    }
+    // 세로 중복 체크
+    for (int i = 0; i < 9; i++) {
+      if (board[i][col] == num) {
+        return false;
+      }
+    }
+    // 3x3 박스 중복 체크
+    int boxRow = (row ~/ 3) * 3;
+    int boxCol = (col ~/ 3) * 3;
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (board[boxRow + i][boxCol + j] == num) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  // 백트래킹을 통해 퍼즐을 생성
+  bool solve(List<List<int?>> board) {
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        if (board[row][col] == null) {
+          for (int num = 1; num <= 9; num++) {
+            if (isValid(board, row, col, num)) {
+              board[row][col] = num;
+              if (solve(board)) {
+                return true; // 퍼즐이 해결되었으면 true 반환
+              }
+              board[row][col] = null; // 실패 시 다시 비워둠
+            }
+          }
+          return false; // 1부터 9까지 모든 숫자가 불가능하면 false 반환
+        }
+      }
+    }
+    return true; // 모든 칸이 채워졌다면 퍼즐이 완료된 것
+  }
+
+  // 난이도에 맞는 퍼즐을 생성 (백트래킹으로 완전한 퍼즐을 만든 후 일부 칸을 비움)
+  void generatePuzzle({int difficulty = 1}) {
+    List<List<int?>> tempBoard = List.generate(9, (_) => List.filled(9, null));
+    List<List<int?>> tempSolution = List.generate(9, (_) => List.filled(9, 0));
+
+    // 백트래킹으로 퍼즐을 해결한 후 정답을 저장
+    solve(tempBoard);
+
+    // 난이도에 맞게 퍼즐을 일부 비우기
+    Random random = Random();
+    int emptyCells = 81 - (difficulty * 20); // 난이도에 따라 빈 칸의 수 설정
+
+    for (int i = 0; i < emptyCells; i++) {
+      int row = random.nextInt(9);
+      int col = random.nextInt(9);
+
+      // 이미 빈 칸인 경우 다시 시도
+      if (tempBoard[row][col] != null) {
+        tempBoard[row][col] = null;
+      } else {
+        i--; // 다시 시도
+      }
+    }
+
+    setState(() {
+      board = tempBoard;
+      solution = tempSolution; // 실제 해결책을 저장 (정답)
+      gameOver = false;
+      isCellValid = List.generate(9, (_) => List.filled(9, true)); // 유효성 검사 상태 초기화
+    });
+  }
+
+  // 게임 종료 체크
+  void checkGameOver() {
+    bool isSolved = true;
+    for (int i = 0; i < 9; i++) {
+      for (int j = 0; j < 9; j++) {
+        if (board[i][j] != solution[i][j]) {
+          isSolved = false;
+          break;
+        }
+      }
+    }
+
+    setState(() {
+      gameOver = isSolved;
+    });
+
+    if (isSolved) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('축하합니다!'),
+          content: Text('게임을 성공적으로 완료했습니다!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                generatePuzzle(difficulty: 1); // 게임 리셋
+              },
+              child: Text('새 게임'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  // 셀 값이 변경될 때 호출되는 함수
+  void _onCellChanged(int row, int col, String value) {
+    int? newValue = value.isNotEmpty ? int.tryParse(value) : null;
+    setState(() {
+      board[row][col] = newValue;
+    });
+
+    // 중복 여부 확인
+    bool valid = true;
+    if (newValue != null) {
+      valid = isValid(board, row, col, newValue);
+    }
+
+    setState(() {
+      isCellValid[row][col] = valid;
+    });
+
+    checkGameOver();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 화면 크기 가져오기
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double cellSize = screenWidth * 0.8 / 9;  // 셀 크기를 화면 너비의 80%로 설정
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sudoku Game'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // 난이도 선택 버튼
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    generatePuzzle(difficulty: 1);
+                  },
+                  child: Text('쉬운 난이도'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    generatePuzzle(difficulty: 2);
+                  },
+                  child: Text('보통 난이도'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    generatePuzzle(difficulty: 3);
+                  },
+                  child: Text('어려운 난이도'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            // 9x9 스도쿠 그리드
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(2),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 9, // 9개의 칸
+                    crossAxisSpacing: 0.0, // 셀 간 간격 없음
+                    mainAxisSpacing: 0.0, // 셀 간 간격 없음
+                  ),
+                  itemCount: 81,
+                  itemBuilder: (context, index) {
+                    int row = index ~/ 9;
+                    int col = index % 9;
+
+                    return Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          // 3x3 박스 구분선
+                          top: BorderSide(
+                            color: (row % 3 == 0) ? Colors.black : Colors.transparent,
+                            width: 2,
+                          ),
+                          left: BorderSide(
+                            color: (col % 3 == 0) ? Colors.black : Colors.transparent,
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: (row == 8) ? Colors.black : Colors.transparent,
+                            width: 2,
+                          ),
+                          right: BorderSide(
+                            color: (col == 8) ? Colors.black : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 1, // 셀 비율 맞추기
+                        child: TextField(
+                          onChanged: (value) => _onCellChanged(row, col, value),
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none, // 경계선 제거
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.7), // 배경 투명도 조정
+                          ),
+                          controller: TextEditingController(
+                              text: board[row][col]?.toString() ?? ''),
+                          enabled: board[row][col] == null, // 빈 칸만 수정 가능
+                          style: TextStyle(
+                            color: isCellValid[row][col]
+                                ? Colors.black // 유효한 값은 검정색
+                                : Colors.red,  // 중복된 값은 빨간색
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
