@@ -114,7 +114,8 @@ ggplot(ss, aes(x=과목, y=점수, group=이름, color=이름))+geom_line()+geom
 
 ------------------------------------------------------------------------------------------------------------
 # posit cloud 들어가서 진행
-
+https://posit.cloud/
+내거(구글계정)
 
 install.packages("multilinguer")
 library(multilinguer)
