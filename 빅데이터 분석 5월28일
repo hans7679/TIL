@@ -9,7 +9,16 @@ library(googleVis)
 
 library(plyr)
 
-
+# ggplot2() : plot()함수의 확장 버전
+# ggplot(dataframe, aes(x=x축데이터, y=y축데이터)) + geom_함수
+#
+# geom 부분 설정값
+# - stat : 주어진 데이터에서 geom에 필요한 데이터를 생성한다
+# - stat_bin : 아래와 같은 데이터를 갖는 dataframe출력
+#   1. count : 각 항목의 빈도수
+#   2. deensity : 각 항목의 밀도수
+#   3. ncount : count와 같으나 값의 범위가(0,1)로 스케일링
+#   4. ndensity : density와 같으나 값의 범위가(0,1)로 스케일링
 
 kor = read.table("학생별국어성적_new.txt", header = T, sep = ',')
 kor
