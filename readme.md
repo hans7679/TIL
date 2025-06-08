@@ -15,3 +15,5 @@
 
 ## 4. Flutter Doctor 실행
 - `flutter doctor` 명령어로 설치 상태 확인
+
+## 5. Flutter 사용
